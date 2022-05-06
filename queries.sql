@@ -69,3 +69,22 @@ ROLLBACK TO SP1;
 UPDATE animals SET weight_kg = weight_kg * -1 WHERE weight_kg < 0;
 /* Commit transaction */
 COMMIT;
+
+/* Write queries (using JOIN) to answer the following questions: */
+/* What animals belong to Melody Pond? */
+SELECT owners.full_name, animals.name FROM animals INNER JOIN owners ON animals.owner_id = owners.id WHERE owners.full_name = 'Melody Pond'
+
+/* List of all animals that are pokemon (their type is Pokemon). */
+SELECT animals.name, species.name FROM animals JOIN species on animals.species_id = species.id WHERE species.name = 'Pokemon' 
+
+/* List all owners and their animals, remember to include those that don't own any animal. */
+SELECT animals.name, owners.full_name FROM animals FULL OUTER JOIN owners ON animals.owner_id = owners.id
+
+/* How many animals are there per species? */
+SELECT species.name, COUNT(animals.species_id) FROM species JOIN animals ON animals.species_id = species.id GROUP BY species.name;
+
+/* List all Digimon owned by Jennifer Orwell. */
+SELECT animals.name, owners.full_name FROM animals JOIN owners ON animals.owner_id = owners.id WHERE owners.full_name = 'Jennifer Orwell' AND animals.species_id = (SELECT id FROM species WHERE name = 'Digimon')
+
+/* Who owns the most animals? */
+SELECT owners.full_name, COUNT(animals.owner_id) FROM owners JOIN animals ON animals.owner_id = owners.id GROUP BY owners.full_name ORDER BY COUNT(animals.owner_id) DESC
