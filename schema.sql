@@ -39,3 +39,6 @@ CREATE TABLE specializations( vet_id INT, species_id INT, CONSTRAINT fk_vets FOR
 
 /* There is a many-to-many relationship between the tables animals and vets: an animal can visit multiple vets and one vet can be visited by multiple animals. Create a "join table" called visits to handle this relationship, it should also keep track of the date of the visit. */
 CREATE TABLE visits( vet_id INT, animal_id INT, visit_date DATE, CONSTRAINT fk_vets FOREIGN KEY (vet_id) REFERENCES vets(id), CONSTRAINT fk_animal FOREIGN KEY (animal_id) REFERENCES animals(id))
+
+/* add an extra column to the owners table */
+LTER TABLE owners ADD COLUMN email VARCHAR(120);
