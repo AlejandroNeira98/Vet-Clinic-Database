@@ -41,4 +41,10 @@ CREATE TABLE specializations( vet_id INT, species_id INT, CONSTRAINT fk_vets FOR
 CREATE TABLE visits( vet_id INT, animal_id INT, visit_date DATE, CONSTRAINT fk_vets FOREIGN KEY (vet_id) REFERENCES vets(id), CONSTRAINT fk_animal FOREIGN KEY (animal_id) REFERENCES animals(id))
 
 /* add an extra column to the owners table */
-LTER TABLE owners ADD COLUMN email VARCHAR(120);
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+/* Create indexes to improve query time */
+
+CREATE INDEX email_asc ON owners(email ASC);
+CREATE INDEX vet_id_asc ON visits(vet_id ASC);
+CREATE INDEX animal_id_asc ON visits(animal_id ASC);
